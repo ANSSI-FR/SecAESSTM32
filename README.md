@@ -295,7 +295,7 @@ The security of the implementation against SCA has been tested on a STM32F303 ta
 
 ![AES trace](doc/technical-report/figures/sample_traces_2M_label.png)
 
-The security analysis is detailed in the dedicated report [doc/technical-report/CR_evaluation_AES.pdf](doc/technical-report/CR_evaluation_AES.pdf).
+The security analysis is detailed in the dedicated report [doc/technical-report/technical_analysis.pdf](doc/technical-report/technical_analysis.pdf).
 
 ## Licenses
 
