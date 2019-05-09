@@ -1,0 +1,18 @@
+\documentclass{minimal}
+\usepackage[greek,french,english]{babel}
+\selectlanguage{english}
+
+\usepackage{tikz}
+
+\begin{document}
+
+\begin{tikzpicture}
+\node[](a){\includegraphics[scale=0.35]{2Mpts/sample_trace_2M.png}};
+\draw [dashed, color=red] (-2.35,-2) -- (-2.35,2);
+\draw [dashed, color=red] (0,-2) -- (0,2);
+\draw [dashed, color=red] (2.5,-2) -- (2.5,2);
+\node[] at (-1.15,-1.85) {Pre-processing};
+\node[] at (1.25,-1.85) {AES rounds};
+\end{tikzpicture}
+
+\end{document}

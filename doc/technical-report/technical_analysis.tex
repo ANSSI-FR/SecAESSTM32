@@ -1,0 +1,80 @@
+\documentclass{article}
+\usepackage[greek,french,english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\selectlanguage{english}
+\frenchbsetup{}
+\usepackage{amsfonts}
+\usepackage[pdftex]{graphicx}
+\usepackage{xspace}
+\usepackage{epsfig}
+\usepackage{times}
+\usepackage{color}
+\usepackage{mathrsfs,multirow}
+\usepackage{ae}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{theorem,multirow}
+\usepackage[boxed,vlined,linesnumbered]{algorithm2e}
+\usepackage[dvipsnames,table]{xcolor}
+\usepackage{colortbl}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{booktabs}
+
+\usepackage{tikz}
+\usepackage{float}
+\usepackage{caption}
+
+\newcommand{\plain}{\mathsf{P}}		% plaintext
+\newcommand{\key}{\mathsf{K}}	
+\newcommand{\stateK}{\mathsf{state_K}}% key state (san masquage)		
+\newcommand{\rmult}{\mathsf{r_m}}
+\newcommand{\gtab}{\mathsf{GTab}}
+\newcommand{\sboxm}{\mathsf{Sbox_m}}
+\newcommand{\rin}{\mathsf{r_{in}}}
+\newcommand{\rout}{\mathsf{r_{out}}}
+\newcommand{\statea}{\mathsf{state}}
+\newcommand{\stateb}{\mathsf{state_M}} % state du mask de l'aes
+\newcommand{\keym}{\mathsf{state'_{M}}}	% state du mask de la clé
+\newcommand{\perMC}{\mathsf{permIndicesMC}}
+\newcommand{\perMCbis}{\mathsf{permIndicesMCbis}}
+\newcommand{\permIndices}{\mathsf{permIndices}}
+\newcommand{\permIndicesbis}{\mathsf{permIndicesBis}}
+\newcommand{\maes}{\mathsf{M}} % mask de l'aes
+\newcommand{\mkey}{\mathsf{M'}} % mask de la clé
+
+\makeatother
+\begin{document}
+\title{Technical analysis of the masked AES implementation}
+\author{LSC, ANSSI}
+\date{\today}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+
+\input{introduction}
+
+\input{description}
+
+\input{caracterisation}
+
+\input{first_order}
+
+\input{second_order}
+
+\input{third_order}
+
+%\newpage
+\bibliographystyle{plain}
+\bibliography{ANSSI}
+
+\end{document}

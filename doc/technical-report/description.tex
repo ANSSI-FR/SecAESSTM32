@@ -1,0 +1,75 @@
+\section{Secured AES: Affine masking}
+\label{sec:secured_aes}
+The version of the AES is an affine implementation according to the paper \emph{Affine masking against high-order side channel analysis}~\cite{FMPR10a}. 
+Each byte state of the AES state, denoted $\statea[i]$ for the $i$-th byte, is manipulated under the form $\rmult \times \statea[i] \oplus \stateb[i]$: $\rmult$ is a non zero random byte, $\stateb[i]$ is initialized with 16-random bytes denoted $\maes[0]\dots \maes[15]$, and $\times$ denotes the multiplication over the AES finite field~\cite{FIPS197}. 
+For each round, the AES operations are applied to both $\statea$ and $\stateb$.
+
+Similarly, the key schedule operation is also protected by manipulating each byte of the key state, denoted  $\stateK[i]$, under an affine form $\rmult' \times \stateK[i] \oplus \keym[i]$ where $\keym$ is initialize with 16-random bytes denoted $ \mkey[0] \dots \mkey[15]$ independent from the aes random bytes $\maes[0]\dots \maes[15]$. As the key schedule is performed independently from encryption and decryption operations, before using each masked key byte,
+it has to be changed into $\rmult \times \stateK[i] \oplus \keym[i]$ (same multiplicative byte $\rmult$) to have a consistent computation. 
+
+To sum up, the AES encryption/decryption and the key schedule each use 19 random bytes as input:
+\begin{itemize}
+\item 16 bytes for Boolean masking $\maes[0]\dots \maes[15]$/$\mkey[0]\dots \mkey[15]$ that initialized the masking state $\stateb$/$\stateK$;
+\item 1 multiplicative byte $\rmult$/$\rmult'$;
+\item 2 bytes $\rin $, $\rout$ / $\rin'$, $\rout'$ (two boolean masking bytes used for SubByte operation). 
+\end{itemize}
+  
+To make this report more readable, we provide the correspondance Table ~\ref{tab:notations} between the notations  in this report (``Here'') and in the ``assembly code''.  
+
+\begin{center}
+
+\begin{tabular}{lll}
+	  Assembly code & Here & size \\ \hline
+%	 raw key  & \texttt{t} & $\key$ & 16\\
+\texttt{key\_rin[0]} 		& $\rin'$ 		& 1\\
+ \texttt{key\_rout[0]} 		& $\rout '$ 	&1\\
+\texttt{key\_rmult[0]} 		& $\rmult ' $	&1\\
+ \texttt{key\_maskedState[i]} 	& $ \rmult \times \stateK[i] \oplus \keym[i] $ & 1\\
+ \texttt{key\_masksState[i]} 	& $ \keym[i]$ & 1\\
+\texttt{key\_gtab} 			& $\gtab$  	&$ 16 \times 16$ \\
+\texttt{key\_permIndicesMC} &$\perMC$ & 4\\
+\hline
+ \texttt{aes\_state[i]} & $\rmult \times \statea[i] \oplus \stateb[i] $ & 1\\
+ \texttt{aes\_state2[i]} & $\stateb[i]$  & 1\\
+\texttt{aes\_rin[0]} & $\rin$ &1\\
+\texttt{aes\_rout[0]} & $\rout$ &1\\
+\texttt{aes\_rmult[0]} & $\rmult$ &1\\
+ \texttt{aes\_gtab} &  $\gtab$  &$ 16 \times 16$\\
+ \texttt{aes\_permIndices} & $\permIndices$& 16\\
+\texttt{aes\_permIndicesBis} & $\permIndicesbis$ & 16\\
+\texttt{aes\_permIndicesMC} & $\perMC$  & 4 \\
+ \texttt{aes\_permIndicesBisMC} & $\perMCbis$  &4 \\
+ \texttt{aes\_sboxMasked} & $\sboxm$ & $16 \times 16$ \\
+\hline
+\end{tabular}
+\captionof{table}{Notations correspondance between this report and the assembly code. Sizes are in number of bytes.}
+\label{tab:notations}
+\end{center}
+
+
+\noindent We can distinguish three main steps: 
+\begin{itemize}
+
+	\item[1] Pre-processing: before the AES rounds, the following operations in this order are performed : loading of inputs, computation of the table $\gtab$ (multiplication by $\rmult$), computation of the affine sbox denoted $\sboxm$, key schedule with affine masking.  
+	
+	\item[2] AES rounds: 10 AES rounds with affine masking of the state and subkeys.
+	
+	\item[3] Post-processing: after AES rounds, the state $\statea$ is unmasked by removing the Boolean mask $\stateb$ and by removing the multiplicative factor $\rmult$ (multiplying by $\rmult^{-1}$).
+\end{itemize}
+
+\noindent \underline{Shuffling:} Many sub-operations on the AES state are performed in a random order: each byte is processed in a random order with pre-computed permutation based on the input random values.
+For AES rounds:
+$\perMC$ is used to shuffle MixColumns of $\statea$ and $\perMCbis$ to shuffle MixColumns of $\stateb$. These permutations are computed from the initial value $\stateb[0]$.  
+The permutation $\permIndices$ is used to shuffle SubBytes and ShiftRows of $\statea $ and the permutation $\permIndicesbis$ is used to shuffle SubBytes and ShiftRows of $\stateb$. These permutations are computed from $\maes[0], \maes[1], \maes[2], \maes[3]$.
+%the initial value of $\stateb[0],$ $ \stateb[1], \stateb[2]$ and $\stateb[3]$.
+
+For key schedule: the four permutations are similar. 
+The permutation $\perMC$ is used to shuffle MixColumns of the masked key state and $\perMCbis$ to shuffle MixColumns of $\keym$. These permutations are computed from $\mkey[0]$. 
+%the initial $\keym[0]$ value.  
+The permutation $\permIndices$ is used to shuffle SubBytes and ShiftRows of the masked key state and $\permIndicesbis$ is used to shuffle SubBytes and ShiftRows of the key mask state $\keym$. These permutations are computed from $\mkey[0], \mkey[1], \mkey[2], \mkey[3]$.
+%the initial values of $\keym[0], \keym[1], \keym[2]$ and $\keym[3]$.
+
+
+
+
+
