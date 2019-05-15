@@ -2,6 +2,8 @@
 
 **Authors:** Ryad Benadjila, Louiza Khati, Emmanuel Prouff and Adrian Thillard
 
+This work is linked to the H2020 funded project **[REASSURE](http://reassure.eu/)**. 
+
 ## Introduction
 
 The members of ANSSI's laboratory of embedded security have developed a `C` library to perform AES-128 encryption and decryption on 32-bit Cortex-M ARM architecture while taking Side-Channel Attacks (SCA for short) into account.
