@@ -22,11 +22,9 @@
  * \param   Mode 			The mode is the command the user wants to execute.        
  * \param   struct_aes      The struct_aes is a strcuture that contains the AES context   
  * \param 	key 			The key is required when MODE_KEYINIT operation in part of the MODE command.
- * \param   key_size 		The key_size is the size in bytes of the key.
  * \param   input     		The input is required when MODE_ENC or MODE_DEC operation is part of the MODE command.
- * \param   input_size      The input_size is the size in bytes of the input.   
  * \param  	output 			The output is required when MODE_ENC or MODE_DEC operation is part of the MODE command.
- * \param   output_size   	The output_size is the size in bytes of the output.
+ * \param  	random_aes 		An array of random values is required 
  * \return 	Error 			Error code: NO_ERROR if succeeds.
 */ 
 UINT aes(UCHAR Mode, STRUCT_AES* struct_aes, const UCHARp key, const UCHARp input, UCHARp output, const UCHARp random_aes, const UCHARp random_key){
@@ -140,11 +138,9 @@ err:
  *    
  * \param   Mode 			The mode is the command the user wants to execute.          
  * \param 	key 			The key is required when MODE_KEYINIT operation in part of the MODE command.
- * \param   key_size 		The key_size is the size in bytes of the key.
  * \param   input     		The input is required when MODE_ENC or MODE_DEC operation is part of the MODE command.
- * \param   input_size      The input_size is the size in bytes of the input.   
  * \param  	output 			The output is required when MODE_ENC or MODE_DEC operation is part of the MODE command.
- * \param   output_size   	The output_size is the size in bytes of the output.
+ * \param  	random_aes 		An array of random values is required
  * \return 	Error 	Error code: NO_ERROR if succeeds.
  */
 UINT test_parameter_content(UCHAR Mode, const UCHARp key,  const UCHARp input, UCHARp output, const UCHARp random_aes, const UCHARp random_key){

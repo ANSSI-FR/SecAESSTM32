@@ -25,9 +25,8 @@ To ease the use of the library, the AES-128 primitive can be executed by calling
 where:
 
 - `key` is the 16-byte AES-128 master key,
-- `key_size` is the key byte-length (always 16 for this version),
-- `input` is an `input_size`-byte array referring either to the plaintext to encrypt (in encryption mode) or to the ciphertext to decrypt (in decryption mode),
-- `output` is an `output_size`-byte array in which the result will be saved,
+- `input` is a `16`-byte array referring either to the plaintext to encrypt (in encryption mode) or to the ciphertext to decrypt (in decryption mode),
+- `output` is a `16`-byte array in which the result will be saved,
 - `MODE` is an unsigned char describing the mode in which the AES-128 primitive has to be executed. It can be a combination of the following options:
   - `MODE_KEYINIT`,
   - `MODE_AESINIT_ENC`,
@@ -55,7 +54,7 @@ STRUCT_AES aes_struct;
 UCHAR key[16] = {0x2b,0x7e, 0x15, 0x16 ,0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c};		
 UCHAR in[16] = {0x32,0x43, 0xf6, 0xa8, 0x88, 0x5a, 0x30 , 0x8d, 0x31, 0x31, 0x98, 0xa2, 0xe0, 0x37, 0x07, 0x34};
 Mode = MODE_KEYINIT|MODE_AESINIT_ENC|MODE_ENC;
-ret = aes(Mode, &aes_struct, key, 16, in, 16, out, 16);
+ret = aes(Mode, &aes_struct, key, in, out);
 ```
 
 ## Project compilation and tests
