@@ -1326,7 +1326,7 @@ aes_loadKey MYLABEL
 	// ------------------------------------------------------
 	ldr_struct_field_addr(r4, 0, key_ctx_masksState)
 	ldr_struct_field_addr(r0, 0, key_ctx_permIndicesMC)
-	mov 	  r6, #0x0											// r6 = Index of random byte in state2
+	mov 	  r6, #0x0											// r6 = Index of random byte in key_ctx_masksState
 	bl Compute_permIndices_Tables_MC
 
 	// Computation of the masked Sbox in key_maskedSBox
@@ -1416,13 +1416,13 @@ aes_init_enc MYLABEL
 	// ------------------------------------------------------
 	ldr_struct_field_addr(r4, 0, aes_ctx_masksState)          	// r4 = @aes_ctx_masksState
 	ldr_struct_field_addr(r0, 0, aes_ctx_permIndicesMC)      	// r0 = @aes_ctx_permIndicesMC
-	mov r6, #0x0							                  	// r6 = Index of random byte in state2
+	mov r6, #0x0							                  	// r6 = Index of random byte in aes_ctx_masksState
 	bl Compute_permIndices_Tables_MC
 
 	// Computation of aes_permIndicesBisMC permutation (4 elements perm)
 	// ------------------------------------------------------
 	ldr_struct_field_addr(r0, 0, aes_ctx_permIndicesBisMC) 		// r0 = @aes_ctx_permIndicesBisMC
-	mov r6, #0x1												// r6 = Index of random byte in state2
+	mov r6, #0x1												// r6 = Index of random byte in aes_ctx_masksState
 	bl Compute_permIndices_Tables_MC
 
 	// Computation of the aes_permIndices and aes_permIndicesBis permutations
@@ -1496,13 +1496,13 @@ aes_init_dec MYLABEL
 	// ------------------------------------------------------
 	ldr_struct_field_addr(r4, 0, aes_ctx_masksState)          	// r4 = @aes_ctx_masksState
 	ldr_struct_field_addr(r0, 0, aes_ctx_permIndicesMC)      	// r0 = @aes_ctx_permIndicesMC
-	mov r6, #0x0							                  	// r6 = Index of random byte in state2
+	mov r6, #0x0							                  	// r6 = Index of random byte in aes_ctx_masksState
 	bl Compute_permIndices_Tables_MC
 	
 	// Computation of aes_permIndicesBisMC permutation (4 elements perm)
 	// ------------------------------------------------------
 	ldr_struct_field_addr(r0, 0, aes_ctx_permIndicesBisMC) 		// r0 = @aes_ctx_permIndicesBisMC
-	mov r6, #0x1												// r6 = Index of random byte in state2
+	mov r6, #0x1												// r6 = Index of random byte in aes_ctx_masksState
 	bl Compute_permIndices_Tables_MC
 	
 	// Computation of the aes_permIndices and aes_permIndicesBis permutations
