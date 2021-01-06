@@ -59,12 +59,12 @@ To make this report more readable, we provide the correspondance Table ~\ref{tab
 
 \noindent \underline{Shuffling:} Many sub-operations on the AES state are performed in a random order: each byte is processed in a random order with pre-computed permutation based on the input random values.
 For AES rounds:
-$\perMC$ is used to shuffle MixColumns of $\statea$ and $\perMCbis$ to shuffle MixColumns of $\stateb$. These permutations are computed from the initial value $\stateb[0]$.  
+$\perMC$ is used to shuffle MixColumns of $\statea$ and $\perMCbis$ to shuffle MixColumns of $\stateb$. Permutation $\perMC$ (resp. $\perMCbis$) is computed from the initial value $\stateb[0]=\maes[0]$ (resp. $\stateb[1]=\maes[1]$). 
 The permutation $\permIndices$ is used to shuffle SubBytes and ShiftRows of $\statea $ and the permutation $\permIndicesbis$ is used to shuffle SubBytes and ShiftRows of $\stateb$. These permutations are computed from $\maes[0], \maes[1], \maes[2], \maes[3]$.
 %the initial value of $\stateb[0],$ $ \stateb[1], \stateb[2]$ and $\stateb[3]$.
 
 For key schedule: the four permutations are similar. 
-The permutation $\perMC$ is used to shuffle MixColumns of the masked key state and $\perMCbis$ to shuffle MixColumns of $\keym$. These permutations are computed from $\mkey[0]$. 
+The permutation $\perMC$ is used to shuffle the manipulation of the words' coordinates of the masked key state (the term word referring here to $4$-bytes vector) and $\perMCbis$ is used to shuffle the manipulation of the words' coordinates of $\keym$. The former permutation is computed from $\mkey[0]$, while the latter one is computed from $\mkey[1]$. 
 %the initial $\keym[0]$ value.  
 The permutation $\permIndices$ is used to shuffle SubBytes and ShiftRows of the masked key state and $\permIndicesbis$ is used to shuffle SubBytes and ShiftRows of the key mask state $\keym$. These permutations are computed from $\mkey[0], \mkey[1], \mkey[2], \mkey[3]$.
 %the initial values of $\keym[0], \keym[1], \keym[2]$ and $\keym[3]$.
