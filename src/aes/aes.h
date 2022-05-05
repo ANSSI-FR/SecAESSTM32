@@ -133,7 +133,7 @@ enum ERR_MODE_STATE{
 *														FUNCTIONS
 *******************************************************************************************************************************/
 
-UINT aes(UCHAR Mode, STRUCT_AES* struct_aes, const UCHARp key, const UCHARp input, UCHARp output, const UCHARp random_key, const UCHARp random_aes);
+UINT aes(UCHAR Mode, STRUCT_AES* struct_aes, const UCHARp key, const UCHARp input, UCHARp output, const UCHARp random_aes, const UCHARp random_key);
 UINT test_mode(UCHAR Mode);
 UINT test_mode_state(UCHAR Mode, UCHAR State);
 UINT test_parameter_content(UCHAR Mode, const UCHARp key,  const UCHARp input, UCHARp output, const UCHARp random_aes, const UCHARp random_key);
