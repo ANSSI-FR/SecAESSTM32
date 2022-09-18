@@ -47,10 +47,10 @@ MEM_LAYOUT=$(BUILD_DIR)/layout.ld
 STFLASH ?= st-flash
 
 GCC_CFLAGS = -fPIC -fno-builtin -g3 -DDEBUG_LVL=0 -Os -mthumb-interwork -mthumb -mcpu=cortex-m4  -mno-long-calls -std=gnu99
-GCC_LDFLAGS = -nostartfiles -fno-builtin -g3 -Os -mthumb-interwork -mthumb -mcpu=cortex-m4  -mno-long-calls
+GCC_LDFLAGS = -nostartfiles -fno-builtin -g3 -Os -mthumb-interwork -mthumb -mcpu=cortex-m4  -mno-long-calls -Wl,--gc-sections
 
 CLANG_CFLAGS = -fPIC -fno-builtin -Os -g -mcpu=cortex-m4 -march=armv7e-m
-CLANG_LDFLAGS = -nostartfiles -fno-builtin -Os -g -mcpu=cortex-m4 -march=armv7e-m
+CLANG_LDFLAGS = -nostartfiles -fno-builtin -Os -g -mcpu=cortex-m4 -march=armv7e-m -Wl,--gc-sections
 
 ifeq ($(COMPILER),clang)
 CC = clang
